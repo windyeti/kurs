@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-12">
+    <div class="clearfix">
+      <h1 class="float-left">Главная</h1>
+    </div>
+    <p>
+      Добро пожаловать <strong><% if current_user.admin? %> администратор - <%else%><%end%></strong><%=current_user.name %>!
+    </p>
+    <p>
+      В вашем магазине товаров <%= @product_count %> шт
+    </p>
+    <p>
+      В избранное добавлено товаров в кол-ве <%= @count_izb %> шт
+    </p>
+
+    <% if current_user.admin? %>
+    <p><%= link_to "Test email", dashboard_test_email_path %></p>
+    <%else%><%end%>
+    
+  </div>
+
+
+</div>

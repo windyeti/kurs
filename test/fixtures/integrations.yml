@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subdomain: MyString
+  password: MyString
+  insalesid: MyString
+  user: one
+  inskey: MyString
+  status: MyString
+
+two:
+  subdomain: MyString
+  password: MyString
+  insalesid: MyString
+  user: two
+  inskey: MyString
+  status: MyString

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  integration: one
+  subdomain: MyString
+  insalesid: MyString
+  status: MyString
+  ready: MyString
+
+two:
+  integration: two
+  subdomain: MyString
+  insalesid: MyString
+  status: MyString
+  ready: MyString

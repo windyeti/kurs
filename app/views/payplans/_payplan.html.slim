@@ -1,0 +1,10 @@
+tr
+  td = payplan.period
+  td = payplan.price
+  td = payplan.for
+
+  - if can? :read, payplan
+    td = link_to 'Show', payplan
+  - if can? :edit, payplan
+    td = link_to 'Edit', edit_payplan_path(payplan)
+    td = link_to 'Destroy', payplan, method: :delete, data: { confirm: 'Are you sure?' }

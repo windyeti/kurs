@@ -1,2 +1,37 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :redirect_to_dashboard
+  check_authorization unless: :devise_controller?
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: exception.message  }
+      format.js { render status: :forbidden }
+      format.json { render json: { message: exception.message }, status: :forbidden }
+    end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name, :subdomain)}
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :name, :subdomain)}
+  end
+
+  private
+
+  def after_sign_in_path_for(resource_or_scope)
+    puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
+    dashboard_index_url(subdomain: resource_or_scope.subdomain)
+  end # after_sign_in_path_for
+
+  def after_sign_out_path_for(_)
+    port = request.host_with_port.split(":").count == 2 ? ":#{request.host_with_port.split(":").last}" : ""
+    request.protocol+request.domain+port
+  end
+
+  def redirect_to_dashboard
+    redirect_to dashboard_index_url(subdomain: current_user.subdomain) if current_user && request.subdomain.blank?
+  end
 end

@@ -1,0 +1,40 @@
+.account__info {
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+.account-notice {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.warning-integration {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 6px;
+  font-size: 80%;
+  border: 1px solid red;
+}
+.info-integration {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 6px;
+  font-size: 80%;
+  border: 1px solid green;
+  background-color: #fff;
+}
+.setup-integration {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 80%;
+  border: 1px solid red;
+  background: red;
+  color: #fff;
+}
+.service__head {
+  //border-bottom: 1px solid gray;
+}

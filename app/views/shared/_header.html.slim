@@ -1,0 +1,29 @@
+.index-header.d-flex.flex-column.flex-md-row.align-items-center
+  .me-md-auto.text-center.text-md-start
+    .logo
+      .m-auto = link_to root_path do
+        = image_tag 'logo.svg', data: {src: 'logo.svg'}, class: 'logo'
+  nav.p-2
+    p
+      a.p-2.text-dark (href="/#service") О сервисе
+      a.p-2.text-dark (href="/#manual") Настройка
+      a.p-2.text-dark (href="/#price") Стоимость
+      a.p-2.text-dark (href="/#o-nas") О нас
+    - if current_user
+      p
+        = link_to "Account", current_user.account, class: "p-2 text-dark"
+        = link_to "Dashboard", dashboard_index_path, class: "p-2 text-dark"
+
+  .p-2
+    - if current_user
+      = link_to "Log out", destroy_user_session_path, method: :delete, class: 'btn btn-primary float-left mr-2'
+      p
+        | you as
+        - if current_user.admin?
+          strong< admin
+        strong
+          =< current_user.name
+    - else
+      = link_to "Log in", new_user_session_path, class: 'btn btn-primary float-left mr-2'
+      = link_to "Sing up", new_user_registration_path, class: 'btn btn-outline-primary float-right'
+

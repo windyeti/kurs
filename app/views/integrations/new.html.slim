@@ -1,0 +1,22 @@
+.d-flex.justify-content-center
+  .content
+    h1 New Integration
+    = form_with model: @integration, local: true do |f|
+
+      .form-inputs
+        p
+          = f.label :inskey, class: "form-label"
+          = f.text_field :inskey, class: "form-control"
+        p
+          = f.label :password, class: "form-label"
+          = f.text_field :password, class: "form-control"
+        p
+          = f.label :subdomain, class: "form-label"
+          = f.text_field :subdomain, class: "form-control"
+
+      .mt-5
+        p
+          = f.submit
+        p
+          = link_to "Назад", account_path(current_user.account)
+

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payplan: one
+  sum: 1.5
+  status: MyString
+  payertype: MyString
+  paymenttype: MyString
+
+two:
+  payplan: two
+  sum: 1.5
+  status: MyString
+  payertype: MyString
+  paymenttype: MyString

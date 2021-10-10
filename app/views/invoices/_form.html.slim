@@ -1,0 +1,35 @@
+= form_with model: [@invoiceable, @invoice], local: true do |f|
+  .payplan-wrapper.mt-3
+    p.mt-2.mb-1
+      | Выберите тип плательщика:
+      .d-flex
+        = f.collection_radio_buttons :payertype, [['fiz', 'Физ лицо'], ['ur', 'Юр лицо']], :first, :last, checked: 'fiz' do |b|
+          .paymenttype.p-2
+            span.ms-2 = b.radio_button
+            span.mx-2 = b.label
+  .payplan-wrapper.mt-3
+    p.mt-2.mb-1
+      | Выберите способ оплаты:
+      .d-flex
+        = f.collection_radio_buttons :paymenttype, [['invoice', 'Счёт для юр лиц'],['creditcard', 'Кредитные карты'], ['paypal', 'Paypal']], :first, :last, checked: 'creditcard' do |b|
+          .paymenttype.p-2
+
+            span.ms-2 = b.radio_button
+            - if b.text == "Кредитные карты"
+              span.mx-2
+                = image_tag 'visa_master.svg', data: {src: 'visa_master.svg'}, class: 'visa-master'
+                | <br>
+                | Webmoney, Сбербанк Онлайн, Apple Pay, Яндекс.Деньги, Альфа-Клик
+            - else
+              span.mx-2 = b.label
+  .payplan-wrapper.mt-3
+    p.mt-2.mb-1
+      | Тарифные планы:
+      .d-flex
+        = f.collection_radio_buttons :payplan_id, Payplan.where(for: "ReviewIntegration"), :id, :period_price, checked: Payplan.where(for: "ReviewIntegration").max_by{|p| p[:price] }.id  do |b|
+          .paymenttype.p-2
+            span.ms-2 = b.radio_button
+            span.mx-2 = b.label
+
+  .mt-4
+    = f.submit

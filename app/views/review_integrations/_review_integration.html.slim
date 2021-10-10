@@ -1,0 +1,27 @@
+- resource = current_user.integration.review_integration
+- integration = current_user.integration
+.header__review_integration.d-flex.mb-2
+  h4.service__head Reviews
+  span
+    - if resource
+      - if resource.ready
+        span.info-integration Установлена
+      - else
+        span.warning-integration Не установлена
+
+      - if resource.status
+        span.info-integration Оплачена
+      - else
+        span.warning-integration Не оплачена
+    - else
+      span.warning-integration Не установлена
+      span.warning-integration Не оплачена
+
+- if resource
+  - if resource.status
+    = link_to "Удалить", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
+  - else
+    = link_to "Оплатить", new_review_integration_invoice_path(resource), class: "btn btn-info me-2"
+    = link_to "Удалить", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
+- else
+  = link_to "Создать", new_integration_review_integration_path(integration), class: "btn btn-primary me-2"
