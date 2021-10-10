@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoiceable, only: [:new, :create]
-  before_action :set_invoice, only: [:show, :edit]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
   authorize_resource
 
   def index
@@ -19,23 +19,45 @@ class InvoicesController < ApplicationController
     @invoice.sum = payplan.price
     @invoice.user = current_user
     if @invoice.save
-    #   TODO cоздать Payment или в after_create ????
-    redirect_to @invoice
+      @payment = @invoice.build_payment(
+        paymenttype: @invoice.paymenttype
+      )
+      @payment.user = current_user
+      @payment.payplan = @invoice.payplan
+      @payment.subdomain = current_user.subdomain
+      @payment.save
+      redirect_to @invoice
     else
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
+    if @invoice.update(invoice_params)
+      redirect_to @invoice
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @invoice.destroy
+    redirect_to current_user.account
   end
-
+  # TODO настроить печать инвойса
   def print
+    # @company = Company.first
+    # @invoice = Invoice.find(params[:invoice_id])
+    # respond_to do |format|
+    #   format.html
+    #   format.pdf do
+    #     render :pdf => "Счёт #{@invoice.id}",
+    #            :template => "invoices/pdfsight",
+    #            :show_as_html => params.key?('debug')
+    #   end
+    # end
   end
 
   private
@@ -53,6 +75,6 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:payertype, :paymenttype, :payplan_id)
+    params.require(:invoice).permit(:payertype, :paymenttype, :payplan_id, :status, :sum)
   end
 end

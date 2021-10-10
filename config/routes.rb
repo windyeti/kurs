@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :integrations, shallow: true, only: [:new, :create, :edit, :update] do
     resources :review_integrations, shallow: true do
       resources :invoices, shallow: true, default: {invoiceable: "review_integrations"} do
+        resources :payments
         get :print, on: :member
       end
     end

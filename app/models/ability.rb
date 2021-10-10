@@ -35,8 +35,12 @@ class Ability
     can :create, ReviewIntegration
     can :destroy, ReviewIntegration, {user_id: user[:id]}
 
-    can :create, Invoice
+    can :create, Invoice, {invoiceable: {integration: {user_id: user[:id]}}}
     can :show, Invoice, {user_id: user[:id]}
+    can :edit, Invoice, {user_id: user[:id]}
+    can :destroy, Invoice, {user_id: user[:id]}
+
+    can :read, Payment, {user_id: user[:id]}
   end
 
   def guest

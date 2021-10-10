@@ -19,9 +19,13 @@
 
 - if resource
   - if resource.status
-    = link_to "Удалить", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
+    = link_to "Счет", resource.invoice, class: "btn btn-success me-2"
+    = link_to "Удалить интеграцию", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
   - else
-    = link_to "Оплатить", new_review_integration_invoice_path(resource), class: "btn btn-info me-2"
-    = link_to "Удалить", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
+    - if resource.invoice
+      = link_to "Счет", resource.invoice, class: "btn btn-info me-2"
+    - else
+      = link_to "Создать счет", new_review_integration_invoice_path(resource), class: "btn btn-info me-2"
+    = link_to "Удалить интеграцию", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
 - else
-  = link_to "Создать", new_integration_review_integration_path(integration), class: "btn btn-primary me-2"
+  = link_to "Создать интеграцию", new_integration_review_integration_path(integration), class: "btn btn-primary me-2"

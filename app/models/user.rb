@@ -7,7 +7,8 @@ class User < ApplicationRecord
   has_one :account, dependent: :destroy
   has_one :integration, dependent: :destroy
   has_one :review_integration, dependent: :destroy
-  has_one :invoice, dependent: :destroy
+  has_many :invoices, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   after_create :create_tenant, :add_account
   after_destroy :delete_tenant

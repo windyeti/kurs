@@ -31,10 +31,11 @@
           img.card-img-top(src="/visa-master.png" alt="Card image" style="width:56%;")
           .card-body.text-center
             - if @invoice.status == "Не оплачен"
-              a (href="https://paymaster.ru/ru-RU/Payment/Init?LMI_PAYMENT_SYSTEM=503&LMI_MERCHANT_ID=52d455b2-cf83-49eb-9096-d5590cac2a7c&LMI_CURRENCY=RUB&LMI_PAYMENT_AMOUNT=<%=@invoice.sum%>&LMI_PAYMENT_DESC=<%=@invoice.payplan.period%>&LMI_PAYMENT_NO=<%=@invoice.id%>&CURRENT_USER=<%=current_user.id%>&LMI_OPEN_INVOICE=0&LMI_SIM_MODE=0" class="btn btn-primary stretched-link") Перейти к оплате
+              a (href="https://paymaster.ru/ru-RU/Payment/Init?LMI_PAYMENT_SYSTEM=503&LMI_MERCHANT_ID=52d455b2-cf83-49eb-9096-d5590cac2a7c&LMI_CURRENCY=RUB&LMI_PAYMENT_AMOUNT=#{@invoice.sum}&LMI_PAYMENT_DESC=#{@invoice.payplan.period}&LMI_PAYMENT_NO=#{@invoice.id}&CURRENT_USER=#{current_user.id}&LMI_OPEN_INVOICE=0&LMI_SIM_MODE=0" class="btn btn-primary stretched-link") Перейти к оплате
 
       .btn-group.mt-5
         - if @invoice.status != 'Оплачен'
           = link_to 'Редактировать', edit_invoice_path(@invoice) , class: 'btn btn-primary'
-        = link_to 'Закрыть', review_integration_invoices_path(@invoice.invoiceable) , class: 'btn btn-outline-primary'
+          = link_to 'Удалить счет', @invoice, method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-danger'
+        = link_to 'Account', current_user.account , class: 'btn btn-outline-primary'
 
