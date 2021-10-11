@@ -38,6 +38,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_dashboard
-    redirect_to dashboard_index_url(subdomain: current_user.subdomain) if current_user && request.subdomain.blank?
+    redirect_to dashboard_index_url(subdomain: current_user.subdomain) if current_user && request.subdomain != current_user.subdomain
   end
 end
