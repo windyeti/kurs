@@ -41,6 +41,7 @@ class Ability
     can :destroy, Invoice, {user_id: user[:id]}
 
     can :read, Payment, {user_id: user[:id]}
+    can :create, Payment, {invoice: {user_id: user[:id]}}
   end
 
   def guest

@@ -18,15 +18,6 @@ class PaymentsController < ApplicationController
   def update
     respond_to do |format|
       if @payment.update(payment_params)
-
-        # start TODO изменеие статуса инвойса перенести в Payment#after_update
-        # TODO изменеие статуса сервиса перенести в Invoicet#after_update
-        invoice = @payment.invoice
-        invoice.update(status: 'Оплачен')
-        # статус сервиса ставим в оплачено true
-        invoice.invoiceable.update(status: true)
-        # end TODO
-
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment }
       else

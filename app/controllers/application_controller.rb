@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_to_dashboard
   check_authorization unless: :devise_controller?
+  # TODO
+  # before_action :allow_cross_domain_ajax
+  #   def allow_cross_domain_ajax
+  #       headers['Access-Control-Allow-Origin'] = '*'
+  #       headers['Access-Control-Request-Method'] = 'GET, POST, OPTIONS'
+  #   end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
