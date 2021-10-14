@@ -2,7 +2,7 @@
 lock "~> 3.16.0"
 
 set :application, "kurs"
-set :repo_url, "WWWWWWWW git@example.com:me/my_repo.git WWWWWWWWWWW"
+set :repo_url, "git@github.com:windyeti/kurs.git"
 
 set :deploy_to, "/var/www/kurs"
 
