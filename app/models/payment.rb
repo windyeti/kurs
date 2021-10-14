@@ -8,6 +8,6 @@ class Payment < ApplicationRecord
   private
 
   def change_invoice
-    invoice.update(status: 'Оплачен')
+    invoice.update(status: 'Оплачен') if status == 'Оплачен'
   end
 end

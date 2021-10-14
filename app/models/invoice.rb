@@ -9,6 +9,6 @@ class Invoice < ApplicationRecord
   private
 
   def change_invoiceable
-    invoiceable.update(status: true)
+    invoiceable.update(status: true) if status == 'Оплачен'
   end
 end

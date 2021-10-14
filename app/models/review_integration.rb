@@ -8,7 +8,7 @@ class ReviewIntegration < ApplicationRecord
   private
 
   def init_review_integration
-    # TODO здесь надо раскидать по теме необходимые снипеты и js
+    Services::Review::SetupInsales.new(self).call
     update(ready: true)
   end
 end

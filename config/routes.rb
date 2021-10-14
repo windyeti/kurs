@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         end
         get :print, on: :member
       end
+      get :get_reviews, on: :collection
     end
   end
 

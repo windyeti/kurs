@@ -11,7 +11,8 @@ class IntegrationsController < ApplicationController
   end
 
   def create
-    @integration = current_user.build_integration
+    @integration = current_user.build_integration(integration_params)
+    @integration.status = true
     if @integration.save
       redirect_to current_user.account
     else
@@ -52,8 +53,9 @@ class IntegrationsController < ApplicationController
       user.create_integration({
                                 subdomen: params[:shop],
                                 password: password,
-                                insalesid: params[:insales_id]
-                                })
+                                insalesid: params[:insales_id],
+                                status: true
+                              })
       head :ok
     end
   end
@@ -65,5 +67,11 @@ class IntegrationsController < ApplicationController
         sign_in(:user, user)
         redirect_to after_sign_in_path_for(user)
     end
+  end
+
+  private
+
+  def integration_params
+    params.require(:integration).permit(:inskey, :password, :subdomain)
   end
 end

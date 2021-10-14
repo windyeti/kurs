@@ -1,7 +1,7 @@
 .d-flex.justify-content-center
   .content
     h1 ReviewIntegrations New
-    = form_with model: [@integration, @review_integration], locat: true do |f|
+    = form_with model: [@integration, @review_integration], local: true do |f|
       p У этого типа сервиса нет атрибутов для заполнения.
       = f.submit
 

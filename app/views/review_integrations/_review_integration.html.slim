@@ -19,7 +19,7 @@
 
 - if resource
   - if resource.status
-    = link_to "Счет", resource.invoice, class: "btn btn-success me-2"
+    = link_to "Счет <i class='fa fa-check' style='color:white'></i>".html_safe, resource.invoice, class: "btn btn-success me-2"
     = link_to "Удалить интеграцию", review_integration_path(resource), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger me-2"
   - else
     - if resource.invoice

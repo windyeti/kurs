@@ -2,14 +2,14 @@
   span.me-auto
     | Subdomain:
     strong =< current_user.subdomain
-  - if current_user.integration
+  - if current_user.integration&.status
     span.account-notice.info-integration Интеграция магазина с приложением настроена
   - else
     = link_to 'Настроить Интеграцию магазина с приложением', new_integration_path, class: "btn account-notice setup-integration"
 
 h3.mt-4 Список Интеграций
 .services.mt-3.ps-3
-  - if current_user.integration
+  - if current_user.integration&.status
     .service.reviews.mt-3
       = render 'review_integrations/review_integration'
   - else
