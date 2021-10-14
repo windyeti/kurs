@@ -39,7 +39,7 @@ set :rails_env, :production
 # Global options
 # --------------
  set :ssh_options, {
-   keys: %w(/Users/egrorails/.ssh/id_rsa),
+   keys: %w(/Users/egorrails/.ssh/id_rsa),
    forward_agent: true,
    auth_methods: %w(publickey password)
  }
