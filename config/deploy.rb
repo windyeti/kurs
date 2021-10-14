@@ -11,6 +11,5 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public", "s
 
 set :format, :pretty
 set :log_level, :info
-set :unicorn_rack_env, -> { production }
 
 after 'deploy:publishing', 'unicorn:restart'
