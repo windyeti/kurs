@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :redirect_to_dashboard
+  # before_action :redirect_to_dashboard
   check_authorization unless: :devise_controller?
 
   # TODO А без этого будет работать ответ?
@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_dashboard
-    if current_user
-      redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
-    end
-  end
+  # def redirect_to_dashboard
+  #   if current_user
+  #     redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
+  #   end
+  # end
 
   protected
 
