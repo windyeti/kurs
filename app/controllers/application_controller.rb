@@ -19,11 +19,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def redirect_to_dashboard
-  #   if current_user
-  #     redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
-  #   end
-  # end
 
   protected
 
@@ -34,14 +29,19 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def after_sign_out_path_for(_)
-    Rails.env.production? ? "#{request.protocol}#{request.domain}" : "#{request.protocol}#{request.domain}:3000"
-  end
-
   def after_sign_in_path_for(resource_or_scope)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
     dashboard_index_url(subdomain: resource_or_scope.subdomain)
   end # after_sign_in_path_for
+
+  def after_sign_out_path_for(resource_or_scope)
+    url = request.host_with_port.gsub("#{request.subdomain}","app")
+    "http://"+url
+  end
+
+  def invoice_path_for(resource_or_scope)
+    invoices_url(subdomain: resource_or_scope.subdomain)
+  end # invoice_path_for
 
 
   def redirect_to_subdomain
@@ -49,11 +49,17 @@ class ApplicationController < ActionController::Base
     if request.subdomain.present?
       if current_user.present? && request.subdomain != current_user.subdomain
         subdomain = current_user.subdomain
-        p host = request.host_with_port.sub!("#{request.subdomain}", subdomain)
-        redirect_to "#{request.protocol}#{host}#{request.path}"
+        host = request.host_with_port.sub!("#{request.subdomain}", subdomain)
+        redirect_to "http://#{host}#{request.path}"
       end
     end
   end # redirect_to_subdomain
+
+  # def redirect_to_dashboard
+  #   if current_user
+  #     redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
+  #   end
+  # end
 
   # def after_sign_in_path_for(resource_or_scope)
   #   puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
