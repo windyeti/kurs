@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery except: :sign_in
+  protect_from_forgery with: :null_session
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :redirect_to_dashboard
