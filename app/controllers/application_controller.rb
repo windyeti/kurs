@@ -34,14 +34,35 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_out_path_for(_)
+    Rails.env.production? ? "#{request.protocol}#{request.domain}" : "#{request.protocol}#{request.domain}:3000"
+  end
+
   def after_sign_in_path_for(resource_or_scope)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
     dashboard_index_url(subdomain: resource_or_scope.subdomain)
   end # after_sign_in_path_for
 
-  def after_sign_out_path_for(_)
-    port = request.host_with_port.split(":").count == 2 ? ":#{request.host_with_port.split(":").last}" : ""
-   "#{request.protocol}.#{request.domain}#{port}"
-  end
+
+  def redirect_to_subdomain
+    return if self.is_a?(DeviseController)
+    if request.subdomain.present?
+      if current_user.present? && request.subdomain != current_user.subdomain
+        subdomain = current_user.subdomain
+        p host = request.host_with_port.sub!("#{request.subdomain}", subdomain)
+        redirect_to "#{request.protocol}#{host}#{request.path}"
+      end
+    end
+  end # redirect_to_subdomain
+
+  # def after_sign_in_path_for(resource_or_scope)
+  #   puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
+  #   dashboard_index_url(subdomain: resource_or_scope.subdomain)
+  # end # after_sign_in_path_for
+  #
+  # def after_sign_out_path_for(_)
+  #   port = request.host_with_port.split(":").count == 2 ? ":#{request.host_with_port.split(":").last}" : ""
+  #  "#{request.protocol}.#{request.domain}#{port}"
+  # end
 
 end
