@@ -11,5 +11,6 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public", "s
 
 set :format, :pretty
 set :log_level, :info
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 after 'deploy:publishing', 'unicorn:restart'
