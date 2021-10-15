@@ -38,9 +38,9 @@ class ApplicationController < ActionController::Base
     request.protocol+request.domain+port
   end
 
-  def redirect_to_dashboard
-    if current_user
-      redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
-    end
-  end
+  # def redirect_to_dashboard
+  #   if current_user
+  #     redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
+  #   end
+  # end
 end
