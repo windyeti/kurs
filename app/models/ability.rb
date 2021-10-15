@@ -47,5 +47,6 @@ class Ability
   def guest
     can :index, :home
     can :manual, :home
+    can :get_reviews, ReviewIntegration
   end
 end
