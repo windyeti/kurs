@@ -1,5 +1,7 @@
 class IntegrationsController < ApplicationController
+  before_action :authenticate_user!
   skip_before_action :authenticate_user!, only: [:install, :login]
+
   authorize_resource
 
   def index

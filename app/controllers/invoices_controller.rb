@@ -1,6 +1,8 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_invoiceable, only: [:new, :create]
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+
   authorize_resource
 
   def index

@@ -1,4 +1,5 @@
 class ReviewIntegrationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_integration, only: [:new, :create]
   before_action :set_review_integration, only: [:destroy]
 
