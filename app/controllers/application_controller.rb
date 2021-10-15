@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(_)
     port = request.host_with_port.split(":").count == 2 ? ":#{request.host_with_port.split(":").last}" : ""
-    request.protocol+request.domain+port
+   "#{request.protocol}.#{request.domain}#{port}"
   end
 
 end
