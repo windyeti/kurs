@@ -11,8 +11,7 @@ module Kurs
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.enable_dependency_loading = true
-    config.autoload_paths += %W(#{config.root}/app #{config.root}/app/services2 #{config.root}/app/services2/insales #{config.root}/app/services2/review)
+    config.autoload_paths += %W(#{config.root}/app #{config.root}/app/services #{config.root}/app/services/insales #{config.root}/app/services/review)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
