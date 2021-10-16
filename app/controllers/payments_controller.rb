@@ -45,7 +45,9 @@ class PaymentsController < ApplicationController
     @payments.each do |payment|
       payment.update(:status => 'Оплачен', :paymentdate => params['LMI_SYS_PAYMENT_DATE'], :paymentid => params['LMI_SYS_PAYMENT_ID'])
     end
-    redirect_to User.find(params['CURRENT_USER']).account
+    @user = User.find(params['CURRENT_USER'])
+    sign_in(:user, @user)
+    redirect_to @user.account
   end
 
   def success
