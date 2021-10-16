@@ -48,5 +48,8 @@ class Ability
     can :index, :home
     can :manual, :home
     can :get_reviews, ReviewIntegration
+    can :fail, Payment
+    can :result, Payment
+    can :success, Payment
   end
 end
