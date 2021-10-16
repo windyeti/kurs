@@ -45,14 +45,14 @@ class PaymentsController < ApplicationController
     @payments.each do |payment|
       payment.update(:status => 'Оплачен', :paymentdate => params['LMI_SYS_PAYMENT_DATE'], :paymentid => params['LMI_SYS_PAYMENT_ID'])
     end
-    head :ok
   end
 
   def success
     puts 'success here'
-    @user = User.find(params[:CURRENT_USER])
-    sign_in(@user)
-    redirect_to after_sign_in_path_for(@user), notice: "Платеж принят"
+    # @user = User.find(params[:CURRENT_USER])
+    # sign_in(@user)
+    # redirect_to after_sign_in_path_for(@user), notice: "Платеж принят"
+    redirect_to root_path, notice: "Платеж принят"
   end
 
   def fail
