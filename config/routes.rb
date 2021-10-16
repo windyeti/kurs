@@ -8,6 +8,14 @@ Rails.application.routes.draw do
 
   root to: "homes#index"
 
+  resources :payments do
+    collection do
+      post :result
+      post :success
+      post :fail
+    end
+  end
+
   resources :integrations, shallow: true do
     collection do
       get :install
@@ -15,13 +23,6 @@ Rails.application.routes.draw do
     end
     resources :review_integrations, shallow: true do
       resources :invoices, shallow: true, default: {invoiceable: "review_integrations"} do
-        resources :payments do
-          collection do
-            post :result
-            post :success
-            post :fail
-          end
-        end
         get :print, on: :member
       end
       get :get_reviews, on: :collection
