@@ -1,13 +1,17 @@
 class Services::Review::AddSnippet
-  def initialize(review_integration, therme_id)
+  attr_reader :theme_id
+
+  def initialize(review_integration, theme_id)
     @review_integration = review_integration
-    @therme_id = therme_id
+    p '============'
+    p @theme_id = theme_id
+    p '============'
   end
 
   def call
     integration = @review_integration.integration
-    url_domain = Services::Insales::UrlDomain.new(integration).call
-    uri = "#{url_domain}/admin/themes/"+"#{@theme_id}"+"/assets.xml"
+    p url_domain = Services::Insales::UrlDomain.new(integration).call
+    p uri = "#{url_domain}/admin/themes/#{theme_id}/assets.xml"
 
     data = '<?xml version="1.0" encoding="UTF-8"?><asset><name>k-kurs-review.liquid</name>
     <content><![CDATA[
