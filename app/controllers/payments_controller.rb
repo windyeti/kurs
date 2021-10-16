@@ -48,6 +48,7 @@ class PaymentsController < ApplicationController
     end
     redirect_to root_path, notice: "Платеж принят"
   end
+
   # TODO после присвоения доменного имени надо вернуть redirect
   def success
     puts 'success here'
