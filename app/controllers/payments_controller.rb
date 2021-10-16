@@ -5,6 +5,8 @@ class PaymentsController < ApplicationController
   # skip_before_action :redirect_to_subdomain
   protect_from_forgery with: :null_session
 
+  skip_authorization_check only: [:success, :fail, :result]
+
   def index
     # @payments = Payment.all
     @search = Payment.ransack(params[:q])
