@@ -2,9 +2,8 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :authenticate_user!, only: [:success, :fail, :result]
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
-  # skip_before_action :redirect_to_subdomain
-  # skip_before_action :protect_from_forgery
-  # protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
+  skip_before_action :redirect_to_subdomain
 
   skip_authorization_check only: [:success, :fail, :result]
 
