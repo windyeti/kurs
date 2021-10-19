@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file.
 # TODO 167.172.160.127 заменить на имя домена
 Rails.application.config.session_store :cookie_store, key: '_myappda_session', domain: {
-    production:   '167.172.160.127',
+    production:   '46.101.153.239',
     staging:      '.k-comment.ru',
     development:  '.lvh.me'
     # development:  '.k-comment.ru'
