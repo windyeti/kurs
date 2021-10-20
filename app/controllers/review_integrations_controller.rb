@@ -28,29 +28,32 @@ class ReviewIntegrationsController < ApplicationController
   end
 
   def get_reviews
-    @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
-    if @review_integration.status
-      url_domain = Services::Insales::UrlDomain.new(@review_integration.integration).call
-      uri = "#{url_domain}/admin/reviews.json"
-
-      RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
-        case response.code
-        when 200
-          response.body
-        when 422
-          puts "error 422"
-          puts response
-        when 404
-          puts 'error 404'
-          puts response
-        when 503
-          sleep 1
-          puts 'sleep 1 error 503'
-        else
-          response.return!(&block)
-        end
-      end
-    end
+    {
+      "my_answer": "KOKOKO"
+    }
+    # @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
+    # if @review_integration.status
+    #   url_domain = Services::Insales::UrlDomain.new(@review_integration.integration).call
+    #   uri = "#{url_domain}/admin/reviews.json"
+    #
+    #   RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
+    #     case response.code
+    #     when 200
+    #       response.body
+    #     when 422
+    #       puts "error 422"
+    #       puts response
+    #     when 404
+    #       puts 'error 404'
+    #       puts response
+    #     when 503
+    #       sleep 1
+    #       puts 'sleep 1 error 503'
+    #     else
+    #       response.return!(&block)
+    #     end
+    #   end
+    # end
   end
 
   private
