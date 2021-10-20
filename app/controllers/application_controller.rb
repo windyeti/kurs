@@ -19,17 +19,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_subdomain
-    return if self.is_a?(DeviseController)
-    if request.subdomain.present?
-      if current_user.present? && request.subdomain != current_user.subdomain
-        subdomain = current_user.subdomain
-        host = request.host_with_port.sub!("#{request.subdomain}", subdomain)
-        redirect_to "http://#{host}#{request.path}"
-      end
-    end
-  end # redirect_to_subdomain
-
   protected
 
   def configure_permitted_parameters
@@ -50,10 +39,20 @@ class ApplicationController < ActionController::Base
     "http://"+url
   end
 
+  def redirect_to_subdomain
+    return if self.is_a?(DeviseController)
+    if request.subdomain.present?
+      if current_user.present? && request.subdomain != current_user.subdomain
+        subdomain = current_user.subdomain
+        host = request.host_with_port.sub!("#{request.subdomain}", subdomain)
+        redirect_to "http://#{host}#{request.path}"
+      end
+    end
+  end # redirect_to_subdomain
+
   def invoice_path_for(resource_or_scope)
     invoices_url(subdomain: resource_or_scope.subdomain)
   end # invoice_path_for
-
 
 
   # def redirect_to_dashboard

@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions:       'users/sessions'
+  }
 
 end
