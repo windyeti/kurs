@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :redirect_to_dashboard
+  # before_action :redirect_to_dashboard
   before_action :allow_cross_domain_ajax
   check_authorization unless: :devise_controller?
 
