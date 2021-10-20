@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     "http://"+url
   end
 
+  def invoice_path_for(resource_or_scope)
+    invoices_url(subdomain: resource_or_scope.subdomain)
+  end # invoice_path_for
+
   def redirect_to_subdomain
     return if self.is_a?(DeviseController)
     if request.subdomain.present?
@@ -50,9 +54,30 @@ class ApplicationController < ActionController::Base
     end
   end # redirect_to_subdomain
 
-  def invoice_path_for(resource_or_scope)
-    invoices_url(subdomain: resource_or_scope.subdomain)
-  end # invoice_path_for
+
+  def redirect_to_app_url
+    return if request.subdomain.present? && request.subdomain == 'app'
+
+    url = app_url
+    redirect_to url
+
+  end # redirect_to_app_url
+
+
+  def app_url
+    subdomain = 'app.'
+    # puts request.subdomain.present?
+    if request.subdomain.present?
+      host = request.host_with_port.sub! "#{request.subdomain}.", ''
+    else
+      host = request.host_with_port
+      # puts host
+    end # if
+
+    # "http://#{subdomain}.#{host}#{request.path}"
+    "http://"+"#{subdomain}"+"#{host}"+"#{request.path}"
+
+  end # app_url
 
 
   # def redirect_to_dashboard
