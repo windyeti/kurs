@@ -29,9 +29,11 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource_or_scope)
-    # Apartment::Tenant.switch!(resource_or_scope.subdomain)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
-    dashboard_index_url(subdomain: resource_or_scope.subdomain)
+    # dashboard_index_url(subdomain: resource_or_scope.subdomain)
+    Apartment::Tenant.switch(resource_or_scope.subdomain) do
+      root_path
+    end
   end # after_sign_in_path_for
 
   def after_sign_out_path_for(resource_or_scope)
