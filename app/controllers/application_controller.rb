@@ -32,9 +32,7 @@ class ApplicationController < ActionController::Base
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
     # dashboard_index_url(subdomain: resource_or_scope.subdomain)
     Apartment::Tenant.switch(resource_or_scope.subdomain) do
-      s = resource_or_scope.subdomain
-      d = dashboard_index_path
-      "#{s}.#{d}"
+      "https://egor_shop.irbandtest.ru/dashboard/index"
     end
   end # after_sign_in_path_for
 
