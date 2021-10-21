@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
-  skip_authorization_check
-  # authorize_resource :class => false
+
+  authorize_resource :class => false
 
   def index
     # insint = current_user.insints.first
