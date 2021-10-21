@@ -30,9 +30,8 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
-    # dashboard_index_url(subdomain: resource_or_scope.subdomain)
-    root_path
-  end # after_sign_in_path_for
+    dashboard_index_url(subdomain: resource_or_scope.subdomain)
+  end # after _sign_in_path_for
 
   def after_sign_out_path_for(resource_or_scope)
     url = request.host_with_port.gsub("#{request.subdomain}","app")
@@ -45,6 +44,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_subdomain
     return if self.is_a?(DeviseController)
+    p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     if request.subdomain.present?
       if current_user.present? && request.subdomain != current_user.subdomain
         subdomain = current_user.subdomain

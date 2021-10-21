@@ -112,13 +112,14 @@ end
 
 # Rails.application.config.middleware.use Apartment::Elevators::Domain
 # Rails.application.config.middleware.use Apartment::Elevators::Subdomain
-Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
+# Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
 # Rails.application.config.middleware.use Apartment::Elevators::Host
 #
 Rails.application.config.middleware.insert_before Warden::Manager, Apartment::Elevators::FirstSubdomain
 
 Apartment::Elevators::FirstSubdomain.prepend RescuableApartmentMiddleware
 Apartment::Elevators::FirstSubdomain.excluded_subdomains = ExcludedSubdomains.subdomains
+
 
 # Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
 #   tenant_name = nil
