@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
-    root_path
-    # dashboard_index_url(subdomain: resource_or_scope.subdomain)
+    # root_path
+    dashboard_index_url(subdomain: resource_or_scope.subdomain)
   end # after _sign_in_path_for
 
   def after_sign_out_path_for(resource_or_scope)
