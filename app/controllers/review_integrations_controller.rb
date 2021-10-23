@@ -1,6 +1,6 @@
 class ReviewIntegrationsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_integration, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :set_integration, only: [:new, :create, :get_reviews]
   before_action :set_review_integration, only: [:destroy]
 
   authorize_resource
@@ -29,6 +29,7 @@ class ReviewIntegrationsController < ApplicationController
 
   def get_reviews
     {
+      "success": true,
       "my_answer": "KOKOKO"
     }
     # @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
