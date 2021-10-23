@@ -85,39 +85,40 @@ class Services::Review::SetupInsales
 
     uri = "#{@url_domain}/admin/themes/#{@theme_id}/assets.xml"
     # TODO 167.172.160.127 заменить на имя домена
-    data = '<?xml version="1.0" encoding="UTF-8"?><asset><name>page.reviews.liquid</name>
+    data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><asset><name>page.reviews.liquid</name>
   <content><![CDATA[
 
-<div class="container page-headding-wrapper">
-  <h1 class="page-headding">Отзывы на товары</h1>
+<div class=\"container page-headding-wrapper\">
+  <h1 class=\"page-headding\">Отзывы на товары</h1>
 </div>
-<script type="text/javascript">
+<script type=\"text/javascript\">
 
     $(document).ready(function(){
-      var url = "https://167.172.160.127/review_integrations/get_reviews"
-      var host = "{{account.subdomain}}.myinsales.ru";
+      var url = \"http://irbandtest.ru/integrations/#{current_user.integration.id}/review_integrations/get_reviews\"
+      var host = \"{{account.subdomain}}.myinsales.ru\";
       $.ajax({
-        "url": url,
-        "async": false,
-        "data": { host: host },
-        "dataType": "json"
+        \"url\": url,
+        \"async\": false,
+        \"data\": { host: host },
+        \"dataType\": \"json\"
       }).done(function( data ) {
 
-console.log("ответ из приложения на запрос Отзывов", data)
+console.log(\"ответ из приложения на запрос Отзывов\", data)
 
-            var reviewsHtml = " ";
-            reviewsHtml += \'<div class="reviews"><div class="row is-grid">\';
+            var reviewsHtml = \"\";
+            reviewsHtml += \"<div class=\"reviews\"><div class=\"row is-grid\">\";
             $.each(data.reviews, function(i,review){
-              reviewsHtml += \'<div class="cell-4 cell-6-sm cell-12-xs"> Здесь будут отзывы\'; //двойные кавычки оставил стандартно, а экранировал одинарные и так в каждой строке дальше
+              reviewsHtml += \"<div class=\"cell-4 cell-6-sm cell-12-xs\"> Здесь будут отзывы\"; //двойные кавычки оставил стандартно, а экранировал одинарные и так в каждой строке дальше
             });
-          reviewsHtml += \'</div></div>\';
-          $(".js-reviews-wrapper").html(reviewsHtml);
+          reviewsHtml += \"</div></div>\";
+          $(\".js-reviews-wrapper\").html(reviewsHtml);
+    });
     });
     </script>
 
-    <div class="js-reviews-wrapper"></div>
+    <div class=\"js-reviews-wrapper\"></div>
 
-  ]]></content><type>Asset::Template</type></asset>'
+  ]]></content><type>Asset::Template</type></asset>"
 
       # response = RestClient.post url, data, :accept => :xml, :content_type => "application/xml"
       RestClient.post( uri, data, {:content_type => 'application/xml', accept: :xml}) do |response, request, result, &block|
