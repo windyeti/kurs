@@ -49,10 +49,9 @@ class PaymentsController < ApplicationController
   end
 
   def success
-    redirect_to root_path
-    # user = User.find(params['CURRENT_USER'])
-    # sign_in(:user, user)
-    # redirect_to after_sign_in_path_for(user)
+    user = User.find(params['CURRENT_USER'])
+    sign_in(:user, user)
+    redirect_to after_sign_in_path_for(user)
   end
 
   def fail
