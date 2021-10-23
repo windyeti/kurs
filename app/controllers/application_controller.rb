@@ -70,7 +70,8 @@ class ApplicationController < ActionController::Base
     subdomain = 'app.'
     # puts request.subdomain.present?
     if request.subdomain.present?
-      host = request.host_with_port.sub! "#{request.subdomain}.", ''
+      host = "#{request.domain}:#{request.port}"
+      # host = request.host_with_port.sub! "#{request.subdomain}.", ''
     else
       host = request.host_with_port
       # puts host
