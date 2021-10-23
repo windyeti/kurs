@@ -47,12 +47,12 @@ class PaymentsController < ApplicationController
     end
     head :ok
   end
-  # TODO после присвоения доменного имени надо вернуть redirect
+
   def success
-    puts 'success here'
-    user = User.find(params['CURRENT_USER'])
-    sign_in(:user, user)
-    redirect_to after_sign_in_path_for(user)
+    redirect_to root_path
+    # user = User.find(params['CURRENT_USER'])
+    # sign_in(:user, user)
+    # redirect_to after_sign_in_path_for(user)
   end
 
   def fail
