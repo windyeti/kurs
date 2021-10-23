@@ -89,7 +89,7 @@ class Services::Review::SetupInsales
   <content><![CDATA[
 
 <div class="container page-headding-wrapper">
-  <h1 class="page-headding">Избранные товары</h1>
+  <h1 class="page-headding">Отзывы на товары</h1>
 </div>
 <script type="text/javascript">
 
