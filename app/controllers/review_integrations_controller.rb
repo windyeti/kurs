@@ -28,10 +28,13 @@ class ReviewIntegrationsController < ApplicationController
   end
 
   def get_reviews
-    {
-      "success": true,
+    data =
+      {
       "my_answer": "KOKOKO"
-    }
+      }
+    respond_to do |format|
+      format.json { render json: { data: data, success: true } }
+    end
     # @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
     # if @review_integration.status
     #   url_domain = Services::Insales::UrlDomain.new(@review_integration.integration).call
