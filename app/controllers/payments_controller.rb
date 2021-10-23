@@ -45,7 +45,6 @@ class PaymentsController < ApplicationController
     @payments.each do |payment|
       payment.update(:status => 'Оплачен', :paymentdate => params['LMI_SYS_PAYMENT_DATE'], :paymentid => params['LMI_SYS_PAYMENT_ID'])
     end
-    redirect_to root_path, notice: "Платеж принят"
   end
   # TODO после присвоения доменного имени надо вернуть redirect
   def success
