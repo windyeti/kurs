@@ -43,7 +43,7 @@ class PaymentsController < ApplicationController
     # TODO для полноценной секюротности можно данные брать из LMI_HASH
     @payments = Payment.where(:user_id => params['CURRENT_USER'], :invoice_id => params['LMI_PAYMENT_NO'] )
     @payments.each do |payment|
-      payment.update(:status => 'Оплачен', :paymentdate => params['LMI_SYS_PAYMENT_DATE'], :paymentid => params['LMI_SYS_PAYMENT_ID'])
+      payment.update_attributes(:status => 'Оплачен', :paymentdate => params['LMI_SYS_PAYMENT_DATE'], :paymentid => params['LMI_SYS_PAYMENT_ID'])
     end
     head :ok
   end
