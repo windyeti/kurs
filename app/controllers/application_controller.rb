@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
+  # protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_to_subdomain
   before_action :allow_cross_domain_ajax
@@ -44,9 +45,8 @@ class ApplicationController < ActionController::Base
   end # invoice_path_for
 
   def redirect_to_subdomain
-    p '==================================='
     return if self.is_a?(DeviseController)
-    p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+
     if request.subdomain.present?
       if current_user.present? && request.subdomain != current_user.subdomain
         subdomain = current_user.subdomain
