@@ -106,11 +106,11 @@ class Services::Review::SetupInsales
 console.log(\"ответ из приложения на запрос Отзывов\", data)
 
             var reviewsHtml = \"\";
-            reviewsHtml += \"<div class=\"reviews\"><div class=\"row is-grid\">\";
+            reviewsHtml += \'<div class=\"reviews\"><div class=\"row is-grid\">\';
             $.each(data.reviews, function(i,review){
-              reviewsHtml += \"<div class=\"cell-4 cell-6-sm cell-12-xs\"> Здесь будут отзывы\"; //двойные кавычки оставил стандартно, а экранировал одинарные и так в каждой строке дальше
+              reviewsHtml += \'<div class=\"cell-4 cell-6-sm cell-12-xs\"> Здесь будут отзывы</div>\'; //двойные кавычки оставил стандартно, а экранировал одинарные и так в каждой строке дальше
             });
-          reviewsHtml += \"</div></div>\";
+          reviewsHtml += \'</div></div>\';
           $(\".js-reviews-wrapper\").html(reviewsHtml);
     });
     });
