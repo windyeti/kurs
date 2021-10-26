@@ -58,48 +58,30 @@ class ApplicationController < ActionController::Base
   end # redirect_to_subdomain
 
 
-  # def redirect_to_app_url
-  #   return if request.subdomain.present? && request.subdomain == 'app'
-  #
-  #   url = app_url
-  #   redirect_to url
-  #
-  # end # redirect_to_app_url
-
-
-  # def app_url
-  #   subdomain = 'app.'
-  #   # puts request.subdomain.present?
-  #   if request.subdomain.present?
-  #     host = "#{request.domain}:#{request.port}"
-  #     # host = request.host_with_port.sub! "#{request.subdomain}.", ''
-  #   else
-  #     host = request.host_with_port
-  #     # puts host
-  #   end # if
-  #
-  #   # "http://#{subdomain}.#{host}#{request.path}"
-  #   "http://"+"#{subdomain}"+"#{host}"+"#{request.path}"
-  #
-  # end # app_url
-
   def redirect_to_app_url
     return if request.subdomain.present? && request.subdomain == 'app'
 
     url = app_url
     redirect_to url
 
-  end
+  end # redirect_to_app_url
 
 
   def app_url
+    subdomain = 'app.'
+    # puts request.subdomain.present?
     if request.subdomain.present?
-      host = request.host_with_port.sub!("#{request.subdomain.gsub('www','')}.", '')
+      host = "#{request.domain}:#{request.port}"
+      # host = request.host_with_port.sub! "#{request.subdomain}.", ''
     else
-      subdomain = 'app'
       host = request.host_with_port
-    end
-    "http://#{subdomain}.#{host}#{request.path}"
-  end
+      # puts host
+    end # if
+
+    # "http://#{subdomain}.#{host}#{request.path}"
+    "http://"+"#{subdomain}"+"#{host}"+"#{request.path}"
+
+  end # app_url
+
 
 end
