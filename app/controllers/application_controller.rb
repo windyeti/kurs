@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
+    # root_path
     dashboard_index_url(subdomain: resource_or_scope.subdomain)
   end # after _sign_in_path_for
 
-  def after_sign_out_path_for(_resource_or_scope)
-    root_path
-    # url = request.host_with_port.gsub("#{request.subdomain}","app")
-    # "http://"+url
+  def after_sign_out_path_for(resource_or_scope)
+    url = request.host_with_port.gsub("#{request.subdomain}","app")
+    "http://"+url
   end
 
   def invoice_path_for(resource_or_scope)
@@ -58,30 +58,30 @@ class ApplicationController < ActionController::Base
   end # redirect_to_subdomain
 
 
-  # def redirect_to_app_url
-  #   return if request.subdomain.present? && request.subdomain == 'app'
-  #
-  #   url = app_url
-  #   redirect_to url
-  #
-  # end # redirect_to_app_url
+  def redirect_to_app_url
+    return if request.subdomain.present? && request.subdomain == 'app'
+
+    url = app_url
+    redirect_to url
+
+  end # redirect_to_app_url
 
 
-  # def app_url
-  #   subdomain = 'app.'
-  #   # puts request.subdomain.present?
-  #   if request.subdomain.present?
-  #     host = "#{request.domain}:#{request.port}"
-  #     # host = request.host_with_port.sub! "#{request.subdomain}.", ''
-  #   else
-  #     host = request.host_with_port
-  #     # puts host
-  #   end # if
-  #
-  #   # "http://#{subdomain}.#{host}#{request.path}"
-  #   "http://"+"#{subdomain}"+"#{host}"+"#{request.path}"
-  #
-  # end # app_url
+  def app_url
+    subdomain = 'app.'
+    # puts request.subdomain.present?
+    if request.subdomain.present?
+      host = "#{request.domain}:#{request.port}"
+      # host = request.host_with_port.sub! "#{request.subdomain}.", ''
+    else
+      host = request.host_with_port
+      # puts host
+    end # if
+
+    # "http://#{subdomain}.#{host}#{request.path}"
+    "http://"+"#{subdomain}"+"#{host}"+"#{request.path}"
+
+  end # app_url
 
 
   # def redirect_to_dashboard
