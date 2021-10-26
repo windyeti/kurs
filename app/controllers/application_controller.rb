@@ -71,7 +71,8 @@ class ApplicationController < ActionController::Base
     subdomain = 'app.'
     # puts request.subdomain.present?
     if request.subdomain.present?
-      host = "#{request.domain}:#{request.port}"
+      host = Rails.env.production? ? "#{request.domain}" : "#{request.domain}:#{request.port}"
+      # host = "#{request.domain}:#{request.port}"
       # host = request.host_with_port.sub! "#{request.subdomain}.", ''
     else
       host = request.host_with_port
