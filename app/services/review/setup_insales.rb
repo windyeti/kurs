@@ -94,7 +94,7 @@ class Services::Review::SetupInsales
 <script type=\"text/javascript\">
 
     $(document).ready(function(){
-      var url = \"http://irbandtest.ru/integrations/#{@integration.id}/review_integrations/get_reviews\"
+      var url = \"https://irbandtest.ru/integrations/#{@integration.id}/review_integrations/get_reviews\"
       var host = \"{{account.subdomain}}.myinsales.ru\";
       $.ajax({
         \"url\": url,
