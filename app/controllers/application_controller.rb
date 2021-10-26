@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :redirect_to_app_url, if: :devise_controller?
   before_action :redirect_to_subdomain
   before_action :allow_cross_domain_ajax
   check_authorization unless: :devise_controller?
@@ -36,8 +35,9 @@ class ApplicationController < ActionController::Base
   end # after _sign_in_path_for
 
   def after_sign_out_path_for(_resource_or_scope)
-    url = request.host_with_port.gsub("#{request.subdomain}.","")
-    "http://"+url
+    root_path
+    # url = request.host_with_port.gsub("#{request.subdomain}","app")
+    # "http://"+url
   end
 
   def invoice_path_for(resource_or_scope)
@@ -83,23 +83,21 @@ class ApplicationController < ActionController::Base
   #
   # end # app_url
 
-  def redirect_to_app_url
-    return if request.subdomain.present? && request.subdomain == 'app'
 
-    url = app_url
-    redirect_to url
+  # def redirect_to_dashboard
+  #   if current_user
+  #     redirect_to dashboard_index_url(subdomain: current_user.subdomain) if request.subdomain != current_user.subdomain
+  #   end
+  # end
 
-  end
-
-
-  def app_url
-    if request.subdomain.present?
-      host = request.host_with_port.sub!("#{request.subdomain.gsub('www','')}.", '')
-    else
-      subdomain = 'app'
-      host = request.host_with_port
-    end
-    "http://#{subdomain}.#{host}#{request.path}"
-  end
+  # def after_sign_in_path_for(resource_or_scope)
+  #   puts resource_or_scope.subdomain + " - это из ApplicationController - after_sign_in_path_for"
+  #   dashboard_index_url(subdomain: resource_or_scope.subdomain)
+  # end # after_sign_in_path_for
+  #
+  # def after_sign_out_path_for(_)
+  #   port = request.host_with_port.split(":").count == 2 ? ":#{request.host_with_port.split(":").last}" : ""
+  #  "#{request.protocol}.#{request.domain}#{port}"
+  # end
 
 end
