@@ -35,17 +35,74 @@ class ReviewIntegrationsController < ApplicationController
     # render json: { data: data, success: true }
 
     @review_integration = ReviewIntegration.find_by_subdomain(params[:host])
+
     if @review_integration.status
-      @reviews = api_get_reviews(@review_integration.integration)
-      render json: { reviews: @reviews, success: true }
+      @integration = @review_integration.integration
+      @url_domain = Services::Insales::UrlDomain.new(@integration).call
+
+
+      @reviews_with_image = get_reviews_wtih_image
+      render json: { reviews: @reviews_with_image, success: true }
     end
   end
 
   private
 
-  def api_get_reviews(integration)
-    url_domain = Services::Insales::UrlDomain.new(integration).call
-    uri = "#{url_domain}/admin/reviews.json"
+  def get_reviews_wtih_image
+    reviews = api_get_reviews
+    reviews.map do |review|
+      product = api_get_products(review["product_id"])
+      image_first = api_get_image(product)
+      review['product_title'] = product['title']
+      review['product_image'] = image_first['thumb_url']
+    end
+  end
+
+  def api_get_image(product)
+    uri = "#{@url_domain}/admin/products/#{product['id']}/images/#{product['images'].first}.json"
+
+    RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
+      case response.code
+      when 200
+        JSON.parse response.body
+      when 422
+        puts "error 422"
+        puts response
+      when 404
+        puts 'error 404'
+        puts response
+      when 503
+        sleep 1
+        puts 'sleep 1 error 503'
+      else
+        response.return!(&block)
+      end
+    end
+  end
+  def api_get_reviews
+    uri = "#{@url_domain}/admin/reviews.json"
+
+    RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
+      case response.code
+      when 200
+        JSON.parse response.body
+      when 422
+        puts "error 422"
+        puts response
+      when 404
+        puts 'error 404'
+        puts response
+      when 503
+        sleep 1
+        puts 'sleep 1 error 503'
+      else
+        response.return!(&block)
+      end
+    end
+  end
+
+  def api_get_products(id)
+    uri = "#{@url_domain}/admin/products/#{id}.json"
 
     RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
       case response.code
