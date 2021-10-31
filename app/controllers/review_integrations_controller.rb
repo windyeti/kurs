@@ -34,11 +34,10 @@ class ReviewIntegrationsController < ApplicationController
     #   }
     # render json: { data: data, success: true }
 
-
-    @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
+    @review_integration = ReviewIntegration.find_by_subdomain(params[:host])
     if @review_integration.status
-      pp @reviews = api_get_reviews(@review_integration.integration)
-      # render json: { reviews: @reviews, success: true }
+      @reviews = api_get_reviews(@review_integration.integration)
+      render json: { reviews: @reviews, success: true }
     end
   end
 
