@@ -37,8 +37,8 @@ class ReviewIntegrationsController < ApplicationController
 
     @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
     if @review_integration.status
-      @reviews = api_get_reviews(@review_integration.integration)
-      render json: { reviews: @reviews, success: true }
+      pp @reviews = api_get_reviews(@review_integration.integration)
+      # render json: { reviews: @reviews, success: true }
     end
   end
 
