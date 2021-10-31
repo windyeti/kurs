@@ -51,9 +51,10 @@ class ReviewIntegrationsController < ApplicationController
     reviews = api_get_reviews
     reviews.map do |review|
       product = api_get_products(review["product_id"])
-      image_first = api_get_image(product)
+      # image_first = api_get_image(product)
       review['product_title'] = product['title']
-      review['product_image'] = image_first['thumb_url']
+      review['product_permalink'] = product['permalink']
+      review['product_image'] = product['images'].first['thumb_url'] if product['images'].present?
       review
     end
   end
