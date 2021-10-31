@@ -105,12 +105,26 @@ class Services::Review::SetupInsales
 
 console.log(\"ответ из приложения на запрос Отзывов\", data)
 
-            var reviewsHtml = \"\";
-            reviewsHtml += \'<div class=\"reviews\"><div class=\"row is-grid\">\';
+            var reviewsHtml = "";
+            reviewsHtml += '<div class=\"container \"><div class=\"reviews\"><div class=\"row is-grid flex-center\">';
             $.each(data.reviews, function(i,review){
-              reviewsHtml += \'<div class=\"cell-4 cell-6-sm cell-12-xs\"> Здесь будут отзывы</div>\'; //двойные кавычки оставил стандартно, а экранировал одинарные и так в каждой строке дальше
+              if (!review.published) {return true}
+              reviewsHtml +=
+                `<div class=\"cell-xs-12 cell-md-6 cell-lg-4 is-grid flex-center\">
+                    <p><img src=\"${review.product_image}\"></p>
+                    <div>
+                    <p>Отзыв на товар:
+                      <strong>
+                        <a href=\"/product/${review.product_permalink}\">${review.product_title}</a>
+                      </strong>
+                    </p>
+              		<p>Автор: ${review.author}</p>
+                    <p>Оценка: ${review.rating}</p>
+              		<p>${review.content}</p>
+                    </div>
+  				</div>`
             });
-          reviewsHtml += \'</div></div>\';
+          reviewsHtml += '</div></div></div>';
           $(\".js-reviews-wrapper\").html(reviewsHtml);
     });
     });
