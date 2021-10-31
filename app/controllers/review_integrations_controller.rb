@@ -28,39 +28,44 @@ class ReviewIntegrationsController < ApplicationController
   end
 
   def get_reviews
-    data =
-      {
-      "my_answer": "KOKOKO"
-      }
-    render json: { data: data, success: true }
+    # data =
+    #   {
+    #   "my_answer": "KOKOKO"
+    #   }
+    # render json: { data: data, success: true }
 
 
-    # @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
-    # if @review_integration.status
-    #   url_domain = Services::Insales::UrlDomain.new(@review_integration.integration).call
-    #   uri = "#{url_domain}/admin/reviews.json"
-    #
-    #   RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
-    #     case response.code
-    #     when 200
-    #       response.body
-    #     when 422
-    #       puts "error 422"
-    #       puts response
-    #     when 404
-    #       puts 'error 404'
-    #       puts response
-    #     when 503
-    #       sleep 1
-    #       puts 'sleep 1 error 503'
-    #     else
-    #       response.return!(&block)
-    #     end
-    #   end
-    # end
+    @review_integration = ReviewIntegration.find_by_subdomen(params[:host])
+    if @review_integration.status
+      @reviews = api_get_reviews(@review_integration.integration)
+      render json: { reviews: @reviews, success: true }
+    end
   end
 
   private
+
+  def api_get_reviews(integration)
+    url_domain = Services::Insales::UrlDomain.new(integration).call
+    uri = "#{url_domain}/admin/reviews.json"
+
+    RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
+      case response.code
+      when 200
+        JSON.parse response.body
+      when 422
+        puts "error 422"
+        puts response
+      when 404
+        puts 'error 404'
+        puts response
+      when 503
+        sleep 1
+        puts 'sleep 1 error 503'
+      else
+        response.return!(&block)
+      end
+    end
+  end
 
   def set_review_integration
     @review_integration = ReviewIntegration.find(params[:id])
