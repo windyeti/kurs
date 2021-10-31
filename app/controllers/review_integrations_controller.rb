@@ -28,12 +28,6 @@ class ReviewIntegrationsController < ApplicationController
   end
 
   def get_reviews
-    # data =
-    #   {
-    #   "my_answer": "KOKOKO"
-    #   }
-    # render json: { data: data, success: true }
-
     @review_integration = ReviewIntegration.find_by_subdomain(params[:host])
 
     if @review_integration.status
@@ -51,7 +45,6 @@ class ReviewIntegrationsController < ApplicationController
     reviews = api_get_reviews
     reviews.map do |review|
       product = api_get_products(review["product_id"])
-      # image_first = api_get_image(product)
       review['product_title'] = product['title']
       review['product_permalink'] = product['permalink']
       review['product_image'] = product['images'].first['thumb_url'] if product['images'].present?
@@ -59,27 +52,6 @@ class ReviewIntegrationsController < ApplicationController
     end
   end
 
-  def api_get_image(product)
-    uri = "#{@url_domain}/admin/products/#{product['id']}/images/#{product['images'].first['id']}.json"
-
-    RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
-      case response.code
-      when 200
-        JSON.parse response.body
-      when 422
-        puts "error 422"
-        puts response
-      when 404
-        puts 'error 404'
-        puts response
-      when 503
-        sleep 1
-        puts 'sleep 1 error 503'
-      else
-        response.return!(&block)
-      end
-    end
-  end
   def api_get_reviews
     uri = "#{@url_domain}/admin/reviews.json"
 
