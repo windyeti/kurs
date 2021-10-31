@@ -105,7 +105,7 @@ class Services::Review::SetupInsales
 
 console.log(\"ответ из приложения на запрос Отзывов\", data)
 
-            var reviewsHtml = "";
+            var reviewsHtml = \"\";
             reviewsHtml += '<div class=\"container \"><div class=\"reviews\"><div class=\"row is-grid flex-center\">';
             $.each(data.reviews, function(i,review){
               if (!review.published) {return true}
