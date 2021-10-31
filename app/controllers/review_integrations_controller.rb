@@ -59,7 +59,7 @@ class ReviewIntegrationsController < ApplicationController
   end
 
   def api_get_image(product)
-    uri = "#{@url_domain}/admin/products/#{product['id']}/images/#{product['images'].first}.json"
+    uri = "#{@url_domain}/admin/products/#{product['id']}/images/#{product['images'].first['id']}.json"
 
     RestClient.get( uri, :accept => :json, :content_type => "application/json") do |response, request, result, &block|
       case response.code
