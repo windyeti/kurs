@@ -40,7 +40,6 @@ class ReviewIntegrationsController < ApplicationController
       @integration = @review_integration.integration
       @url_domain = Services::Insales::UrlDomain.new(@integration).call
 
-
       @reviews_with_image = get_reviews_wtih_image
       render json: { reviews: @reviews_with_image, success: true }
     end
@@ -55,6 +54,7 @@ class ReviewIntegrationsController < ApplicationController
       image_first = api_get_image(product)
       review['product_title'] = product['title']
       review['product_image'] = image_first['thumb_url']
+      review
     end
   end
 
