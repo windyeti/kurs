@@ -23,15 +23,15 @@ class Services::Review::DeleteInsales
         asset_id = asset['id']
         RestClient.delete("#{url_theme}/assets/#{asset_id}.json")
       end
-      if asset['inner_file_name'] == "layouts.layout.liquid"
+      if asset['inner_file_name'] == "footer.liquid"
         asset_id = asset['id']
-        response_layout = RestClient.get("#{url_theme}/assets/#{asset_id}.json")
-        layout = JSON.parse(response_layout)
+        response_footer = RestClient.get("#{url_theme}/assets/#{asset_id}.json")
+        footer = JSON.parse(response_footer)
 
-        new_content = layout['content'].gsub('<span class="k-kurs-review">{% include "k-kurs-review" %}</span>','')
-        new_layout = '<asset><content><![CDATA[ '+new_content+' ]]></content></asset>'
-        url_layout_xml ="#{url_theme}/assets/#{asset_id}.xml"
-        RestClient.put(url_layout_xml, new_layout, :accept => :xml, :content_type => "application/xml")
+        new_content = footer['content'].gsub('<span class="k-kurs-review">{% include "k-kurs-review" %}</span>','')
+        new_footer = '<asset><content><![CDATA[ '+new_content+' ]]></content></asset>'
+        url_footer_xml ="#{url_theme}/assets/#{asset_id}.xml"
+        RestClient.put(url_footer_xml, new_footer, :accept => :xml, :content_type => "application/xml")
       end
     end
   end
