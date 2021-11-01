@@ -10,7 +10,6 @@ class Services::Review::SetupInsales
     add_snippet
     add_snippet_layout
     add_template_page
-    # Services::Review::AddPage.new(@review_integration, theme_id).call
   end
 
 
@@ -150,3 +149,4 @@ console.log(\"ответ из приложения на запрос Отзыв�
       end
   end
 end
+
