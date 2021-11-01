@@ -29,7 +29,7 @@ class Services::Review::DeleteInsales
         layout = JSON.parse(response_layout)
 
         new_content = layout['content'].gsub('<span class="k-kurs-review">{% include "k-kurs-review" %}</span>','')
-        new_layout = "<asset><content><![CDATA[ #{new_content} ]]></content></asset>"
+        new_layout = '<asset><content><![CDATA[ '+new_content+' ]]></content></asset>'
         url_layout_xml ="#{url_theme}/assets/#{asset_id}.xml"
         RestClient.put(url_layout_xml, new_layout, :accept => :xml, :content_type => "application/xml")
       end
